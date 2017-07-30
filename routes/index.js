@@ -25,7 +25,12 @@ router.post('/upload', function(req, res, next) {
 
 /* GET home page. */
 router.get('/radioo', function(req, res, next) {
-  res.render('index', { album_info: { song_info: false } });
+
+var album_info = {
+	song_info: false,
+	video_info: {}
+}
+  res.render('index', { album_info });
 });
 
 //route for requesting data from externall api
@@ -60,21 +65,21 @@ router.post('/radioo', function(req, res, next) {
 					empty_area: false,
 					video_info: {}
 				}
-				callback(album_info)
-			}
+				callback(null,album_info)
+			})
 		},
 		function(album_info, callback) {
+
 			//if there are any matches
 			if (album_info.resource_url) {
-
 				//make another call for specific album
-				request(`${resource_url}`, options, function(error, response, body) {
+				request(`${album_info.resource_url}`, options, function(error, response, body) {
 					//grabing data
 					var random_album_data = JSON.parse(response.body)
 					var lowest_price = random_album_data.lowest_price ? `${Math.round(random_album_data.lowest_price)}$` : '$'
 
 					//checking first if there is a video in my database
-					Url.findOne({ title: title }, function(err, result) {
+					Url.findOne({ title: album_info.title }, function(err, result) {
 						if (err) callback(err)
 
 						//if there is no video in database assign discogs video
@@ -88,7 +93,8 @@ router.post('/radioo', function(req, res, next) {
 								fb_link: fb_url,
 								lowest_price: lowest_price
 							}
-							return callback(album_info)
+							
+							return callback(null, album_info)
 							//if there is no video in both ddatabases
 						} else {
 							album_info.video_info = {
@@ -97,7 +103,8 @@ router.post('/radioo', function(req, res, next) {
 								fb_link: '#',
 								lowest_price: lowest_price
 							}
-							callback(album_info)
+
+							return callback(null, album_info)
 						}
 					})
 				})
@@ -115,12 +122,17 @@ router.post('/radioo', function(req, res, next) {
 						is_video: false
 					}
 				}
-				return callback(album_info)
+				return callback(null,album_info)
 			}
 		}
 	], function(err, album_info) {
 		if (err) return res.send({ error: err, msg: 'There was an error' })
+		
 		res.render('index', { album_info })
+
+		// This works totalty fine but res.render('index', { album_info }) Doesn't do anything
+		// res.send(album_info)	
+		
 	})
 });
 

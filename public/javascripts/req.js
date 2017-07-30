@@ -93,8 +93,8 @@ $( document ).ready(function() {
 				dataType: 'json',
 				success: function(data){
 					console.log(data)
-					localStorage.setItem("album_info", JSON.stringify(data));
-					location.reload()
+					// localStorage.setItem("album_info", JSON.stringify(data));
+					// location.reload()
 
 				}
 			});
