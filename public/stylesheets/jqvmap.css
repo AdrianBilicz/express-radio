@@ -1,0 +1,483 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+.wrapper{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.jqvmap-label
+{
+	position: absolute;
+	display: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: #292929;
+	color: white;
+	font-family: sans-serif, Verdana;
+	font-size: smaller;
+	padding: 3px;
+  pointer-events:none;
+}
+.jqvmap-pin {
+  pointer-events:none;
+}
+.jqvmap-zoomin, .jqvmap-zoomout
+{
+	position: absolute;
+	left: 10px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: #000000;
+	padding: 3px;
+	color: white;
+	width: 10px;
+	height: 10px;
+	cursor: pointer;
+	line-height: 10px;
+	text-align: center;
+}
+.jqvmap-zoomin
+{
+	top: 10px;
+}
+.jqvmap-zoomout
+{
+	top: 30px;
+}
+.jqvmap-region
+{
+  cursor: pointer;
+}
+
+.jqvmap-ajax_response
+{
+  width: 100%;
+  height: 500px;
+}
+html, body { margin:0; padding:0; overflow:hidden; font-family: 'Oswald', sans-serif; }
+
+.song-info{
+	position: absolute;
+	bottom: 120px;
+	left: 50px;
+	padding: 10px;
+	background-color: #fcc;
+	border: 4px #fff solid;
+	border-radius: 4px;
+}
+.song-thumbnail{
+	position: relative;
+}
+.song-thumbnail img{
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%)
+}
+.box-title{
+	width: 100px;
+	text-transform: uppercase;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff181;
+	font-size: 14px;
+	bottom: 99%;
+	border: 2px solid #000;
+	border-radius: 2px;
+	text-align: center;
+}
+.artist{
+	display: inline-block;
+	color: #fff;
+	background-color: #000;
+	width: 150px;
+}
+a.link{
+	display: block;
+}
+.timeline{
+	position: absolute;
+	top: 90%;
+	left: 40%;
+}
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+.timeline input.time{
+	width: 500px;
+}
+.range-value{
+	display: inline-block;
+	width: 35px;
+	background-color: #fff;
+	font-family: 'Oswald', sans-serif;
+	font-weight: bold;
+}
+.player{
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 68px;
+  left: 182px;
+}
+.start{
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #6497c3;
+  border-radius: 15px;
+  border: solid #fff 2px;
+  font-size: 1.4em;
+}
+.start p{
+  margin: 0;
+}
+
+.start span.and, span.country, span.year{
+  font-weight: bold;
+  color: #ffed00;
+}
+
+.help{
+  width: 50px;
+  height: 50px;
+  background-color: #c21f25;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border-radius: 50%;
+}
+.help:hover{
+  cursor: pointer;
+}
+.fa-info{
+  font-size: 2em;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+img.plane{
+  position: absolute;
+  top: 200px;
+  left: 0;
+  animation-name: fly;
+  animation-duration: 20s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+  -webkit-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.mood{
+  position: absolute;
+  top: 30%;
+  right: 0;
+  background-color: pink;
+  border-radius: 5px;
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+-webkit-box-shadow: 0px 1px 4px 3px rgba(0,0,0,0.6);
+-moz-box-shadow: 0px 1px 4px 3px rgba(0,0,0,0.6);
+box-shadow: 0px 1px 4px 3px rgba(0,0,0,0.6);
+transition: all ease-in-out 0.3s
+
+}
+.mood ul{
+  padding: 0 0  0 5px;
+  margin: 0;
+}
+.mood li{
+  background-color: #3792bc;
+  list-style-type: none;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mood li p{
+  display: inline-block;
+  margin: 0;
+  padding: 5px;
+}
+.mood li i{
+  padding-left: 5px;
+}
+.mood span{
+  display: block;
+  position: absolute;
+  top: 30;
+  left: -49;
+  background-color: #c21f25;
+  color: #fff;
+  padding: 2px;
+  padding-right: 10px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+.mood.hide{
+  transform: translateX(100px);
+  transition: all ease-in-out 0.3s
+}
+.mood li i.clicked{
+  color: #fff;
+}
+img#vinyl{
+  position: absolute;
+    bottom: 0px;
+    left: 160px;
+  animation-name: spining;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+.fb-share{
+  display: inline-block;
+  text-decoration: none;
+  height: 40px;
+
+}
+.fb-share img{
+  height: 100%;
+}
+
+.disabled{
+  pointer-events: none;
+}
+.price-wrapper{
+  display: inline-block;
+  width: 40px;
+  height: 100%;
+  background-color: #cdec93;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.price-wrapper .coin{
+  margin: 0;
+  background-color:#d1c458;
+  height: 75%;
+  width: 75%;
+  border-radius: 50%;
+  position: relative;
+  border: 1px #000 solid;
+}
+.price-wrapper .coin p{
+  margin: 0;
+  display: inline-block;
+  z-index: 29;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 0.7em;
+}
+.price-wrapper .coin:before {
+  content: "";
+  width: 85%;
+  height: 85%;
+  background:  #f5e466;
+  border-radius: 50%;
+  border: 1px solid #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.buttons-container{
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+}
+.add i{
+  font-size: 40px;
+  cursor: pointer;
+}
+.post-song{
+  padding: 10px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 450px;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  text-transform: uppercase;
+  background-color: rgb(48,113,169);
+  border-radius: 15px;
+  border: solid #fff 2px;
+  font-size: 1.4em;
+}
+input[type=submit]
+{
+padding: 10px 15px 11px !important;
+font-size: 18px !important;
+background-color: #57d6c7;
+font-weight: bold;
+text-shadow: 1px 1px #57D6C7;
+color: #ffffff;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border: 1px solid #57D6C7;
+cursor: pointer;
+box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+outline: none;
+}
+input[type="text"] {
+  display: inline-block;
+  margin: 0;
+  width: 100px;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  flex-grow: 1;
+  outline: none;
+  margin: 0;
+  padding: 0;
+
+}
+input[type="text"]:focus {
+  outline: none;
+}
+form{
+  margin: 0;
+  display: flex;
+}
+h2{
+  font-family: 'Pacifico', cursive;
+  font-size: 20px;
+  color: #fcc;
+}
+.hidden{
+  display: none!important;
+}
+@keyframes spining{
+  0%{transform: rotate(0deg)}
+  100%{transform: rotate(360deg);}
+}
+
+@keyframes fly{
+  0%{transform: translateX(-100%);}
+  50%,100%{transform: translateX(100vw);}
+}
