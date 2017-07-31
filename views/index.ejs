@@ -16,12 +16,30 @@
     <div id="vmap" style="width: 100%; height: 100%;"></div>
     <!-- PLANE -->
     <img src="/img/plane.png" class="plane" height="80px" alt="">
-    <!-- SONG INFO -->
-    <div class="song-info-wrapper">
 
+    <!-- LOGIN -->
+    <div class="login-btn">Login</div>
+
+    <div class="login-box">
+    <div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
+      <form class="login" action="">
+        <div class="input-fields">
+          <div class="form-column">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email">
+          </div>
+          <div class="form-column">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="*****">
+          </div>
+        </div>
+        <input class="login-submit" type="submit" value="Send">
+      </form>
+
+      <a href="#">Don't have an account?</a>
     </div>
-
-
+    <!-- SONG INFO -->
+    <div class="song-info-wrapper"></div>
     <!-- TIMELINE -->
     <div class="timeline">
       <input class="time" type="range" min="1920" max="2017" step="1">
@@ -56,7 +74,7 @@
     <div class="post-song hidden">
       <form action="/upload">
         <input type="text">
-        <input type="submit" placeholder="Paste a youtube url...">
+        <input class="youtube" type="submit" placeholder="Paste a youtube url...">
       </form>
     </div>
   </div>

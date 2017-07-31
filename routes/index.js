@@ -8,7 +8,7 @@ var Url = require('../models/url')
 
 //prevent requesting for favicon
 router.get('/favicon.ico', function(req, res) {
-  res.status(204);
+	res.status(204);
 });
 
 //Uploading youtube video to database
@@ -18,28 +18,24 @@ router.post('/upload', function(req, res, next) {
   var new_record = new Url({ title, video_url: youtube_link })
   //save database record
   new_record.save(function(err) {
-    if (err) return res.send({ success: false, msg: 'error writing to database' })
-    console.log('ok')
+  	if (err) return res.send({ success: false, msg: 'error writing to database' })
+  		console.log('ok')
   })
 });
 
 /* GET home page. */
 router.get('/radioo', function(req, res, next) {
 
-var album_info = {
-	song_info: false,
-	video_info: {}
-}
-  res.render('index', { album_info });
+	res.render('index');
 });
 
 //route for requesting data from externall api
 router.post('/radioo', function(req, res, next) {
 	//api request options
 	var options = { headers: { 'user-agent': 'node.js' } }
-  var setup = req.body,
-    	token = 'PrwFREBcgmJxCDHzelVWgSObSBOxvvgtGPXiBFeI',
-    	api_search = 'https://api.discogs.com/database/search?'
+	var setup = req.body,
+	token = 'PrwFREBcgmJxCDHzelVWgSObSBOxvvgtGPXiBFeI',
+	api_search = 'https://api.discogs.com/database/search?'
 
 	async.waterfall([
 		function(callback) {
@@ -48,7 +44,7 @@ router.post('/radioo', function(req, res, next) {
 				if (error || response.statusCode >= 400) return callback(error)
 
 				//grab collection from api
-				var albums_collection = JSON.parse(response.body)
+			var albums_collection = JSON.parse(response.body)
 				//assigning album data to variables
 				var item = Math.floor(Math.random() * albums_collection.results.length);
 				var thumb = albums_collection.results.length !== 0 ? albums_collection.results[item].thumb : '/img/nopreview.jpeg'
@@ -83,25 +79,33 @@ router.post('/radioo', function(req, res, next) {
 						if (err) callback(err)
 
 						//if there is no video in database assign discogs video
-						if (result || random_album_data.videos) {
-							var ytb_url = result ? result.video_url : random_album_data.videos[0].uri
-							var iframe_url = ytb_url.replace('watch?v=', 'embed/') + '?autoplay=1';
-							var fb_url = `https://www.facebook.com/sharer/sharer.php?u=${ytb_url}`;
-							album_info.video_info = {
-								is_video: true,
-								video_url: iframe_url,
-								fb_link: fb_url,
-								lowest_price: lowest_price
-							}
-							
-							return callback(null, album_info)
+					if (result || random_album_data.videos) {
+						if(result){
+							var ytb_url = result.video_url ? result.video_url : random_album_data.videos[0].uri
+							var likes = result.likes ? result.likes : 0
+						}else{
+							var ytb_url = random_album_data.videos[0].uri
+							var likes = 0
+						}
+						var iframe_url = ytb_url.replace('watch?v=', 'embed/') + '?autoplay=1';
+						var fb_url = `https://www.facebook.com/sharer/sharer.php?u=${ytb_url}`;
+						album_info.video_info = {
+							is_video: true,
+							video_url: iframe_url,
+							fb_link: fb_url,
+							lowest_price: lowest_price,
+							likes: likes
+						}
+
+						return callback(null, album_info)
 							//if there is no video in both ddatabases
-						} else {
+						}else{
 							album_info.video_info = {
 								is_video: false,
 								video_url: '#',
 								fb_link: '#',
-								lowest_price: lowest_price
+								lowest_price: lowest_price,
+								likes: 0
 							}
 
 							return callback(null, album_info)
@@ -111,29 +115,59 @@ router.post('/radioo', function(req, res, next) {
 			}
 			//if there aren't any matches
 			else {
-				var album_info = {
-					album_photo: thumb,
-					title: title,
-					uri: uri,
-					resource_url: resource_url,
-					song_info: true,
-					empty_area: true,
-					video_info: {
-						is_video: false
-					}
+				album_info.video_info = {
+					is_video: false,
+					video_url: '#',
+					fb_link: '#',
+					lowest_price: '',
+					likes: 0
 				}
+
 				return callback(null,album_info)
 			}
 		}
-	], function(err, album_info) {
-		if (err) return res.send({ error: err, msg: 'There was an error' })
-		
+		], function(err, album_info) {
+			if (err) return res.send({ error: err, msg: 'There was an error' })
+
 		// res.render('index', { album_info })
 
 		// This works totalty fine but res.render('index', { album_info }) Doesn't do anything
 		res.send(album_info)	
 		
 	})
+});
+
+router.post('/like', function(req, res, next) {
+	var title = req.body.title
+	var is_video = JSON.parse(req.body.video_info.is_video)
+	
+
+if(is_video){
+		Url.findOne({ title: title }, function(err, result) {
+			if (result) {
+				var likes = ++result.likes
+				Url.update({title: title},{"$set": {likes: likes}},function(err,res){
+					console.log(err)
+					console.log(res)
+				})
+
+					return	res.send({likes: likes})
+
+			} else {
+				var new_record = new Url({ title, video_url: '', likes: 1 })
+  				//save database record
+  				new_record.save(function(err) {
+  					if (err) return res.send({ success: false, msg: 'error writing to database' })
+  						console.log('ok')	
+  				})
+  				return res.send({likes: 1})
+  			}
+  		});
+
+	}else{
+		console.log("you can't like the song")
+	}
+
 });
 
 module.exports = router;

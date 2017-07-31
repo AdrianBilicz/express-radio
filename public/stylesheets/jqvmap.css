@@ -90,13 +90,16 @@ html, body { margin:0; padding:0; overflow:hidden; font-family: 'Oswald', sans-s
 	text-align: center;
 }
 .artist{
-	display: inline-block;
+	display: block;
 	color: #fff;
 	background-color: #000;
 	width: 150px;
+  margin: 0 auto;
 }
 a.link{
 	display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 .timeline{
 	position: absolute;
@@ -223,7 +226,7 @@ input[type=range]:focus::-ms-fill-upper {
   background-color: #fff;
   position: absolute;
   bottom: 68px;
-  left: 182px;
+  left: 191px;
 }
 .start{
   padding: 20px;
@@ -336,7 +339,7 @@ transition: all ease-in-out 0.3s
 img#vinyl{
   position: absolute;
     bottom: 0px;
-    left: 160px;
+    left: 171px;
   animation-name: spining;
   animation-duration: 2s;
   animation-fill-mode: both;
@@ -422,7 +425,7 @@ img#vinyl{
   border: solid #fff 2px;
   font-size: 1.4em;
 }
-input[type=submit]
+input[type=submit].yotube
 {
 padding: 10px 15px 11px !important;
 font-size: 18px !important;
@@ -472,6 +475,114 @@ h2{
 .hidden{
   display: none!important;
 }
+.like{
+  height: 40px;
+  background-color: #fff;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+
+}
+.like i{
+  color: red;
+  font-size: 30px;
+}
+.like i p{
+  display: inline-block;
+  color: #fff;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif; 
+}
+.flex{
+  margin: 0 2px;
+}
+#no-video{
+  text-align: center;
+}
+.login-btn{
+  display: inline-block;
+  background-color: #feec39;
+  position: absolute;
+  top: 10%;
+  right: 26px;
+  padding: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+.login-box{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(48,113,169);
+  border: solid #fff 4px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  width: 20%;
+}
+.login-box form.login{
+
+  margin-bottom: 20px;
+}
+.login-box form.login .input-fields .form-column{
+  display: flex;
+  flex-direction: column;
+}
+.login-box form.login .input-fields{
+   flex-grow: 1;
+}
+.login-box form.login .form-column input{
+   font-family: 'Oswald', sans-serif; 
+ }
+ .login-box a{
+   color: black;
+ }
+input.login-submit{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(20%,20%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  outline: none;
+  background-color: #c21f25;
+  border: none;
+  font-family: 'Oswald', sans-serif; 
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%,-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+}
+.close i{
+  font-size: 25px;
+  color: #fff;
+}
+
 @keyframes spining{
   0%{transform: rotate(0deg)}
   100%{transform: rotate(360deg);}

@@ -93,8 +93,8 @@ $( document ).ready(function() {
 				dataType: 'json',
 				success: function(data){
 					$('.song-info').remove()
-					var html =ejs.render( `
-								<div class="song-info <%if (!album_info.song_info) { %> hidden <% } %>">
+					
+		 var html = ejs.render( `<div class="song-info <%if (!album_info.song_info) { %> hidden <% } %>">
 									<div class="box-title">Now Playing</div>
 									<div class="song-thumbnail">
 										<img src='<%= album_info.album_photo %>' height='150' width='150' alt="" class="thumb">
@@ -104,48 +104,46 @@ $( document ).ready(function() {
 										<a href='<%= album_info.uri %>' target="_blank" class="link ">check info about the album</a>
 										<p id="no-video"><%if (!album_info.video_info.is_video) { %>the video is not provided<% } %></p>
 										<div class="buttons-container ">    
-											<a class="fb-share" href="<%if (!album_info.video_info.fb_url) { %> disabled <% } %>" target="_blank">
+											<a class="fb-share flex" href="<%if (!album_info.video_info.fb_url) { %> disabled <% } %>" target="_blank">
 												<img src="/img/facebook.png" alt="">
 											</a>
-											<div class="price-wrapper">
+											<div class="price-wrapper flex">
 												<div class="coin">
 													<p class="price"><%if (album_info.video_info.lowest_price !== 0) { %> <%= album_info.video_info.lowest_price %> <% }else{ %> $ <% } %></p>
 												</div>
 											</div>
-											<div class="add <%if (album_info.video_info.is_video) { %> disabled <% } %>"><i class="fa fa-plus-square" aria-hidden="true"></i></div>
+											<div class="add flex <%if (album_info.video_info.is_video) { %> disabled <% } %>"><i class="fa fa-plus-square" aria-hidden="true"></i></div>
+											<div class="like flex"><i class="fa fa-heart" aria-hidden="false"><p class="likes"><%= album_info.video_info.likes %></p></i></div>
 										</div>
 									</div>
 									<div class="player-wrapper <%if (!album_info.video_info.is_video ) { %> hidden <% } %> ">
 										<iframe src="<%= album_info.video_info.video_url %>" frameborder="0" class="player"></iframe>
 										<img id="vinyl" height="100px" src="/img/vinyl.svg" alt="">
 									</div>
-								</div>
-							`,{album_info: data})
+								</div>`,{album_info: data})
 					$('.song-info-wrapper').append(html)
 
-					// localStorage.setItem("album_info", JSON.stringify(data));
-					// location.reload()
+					localStorage.setItem("album_info", JSON.stringify(data));
 
 				}
 			});
 		}
-		// onRegionOver: function(event, code, region)
-		// {
-		// 	$('.jqvmap-label').text(loading)
-		// 	setup.country = region
-		// 	$.ajax({
-		// 		type: 'POST',
-		// 		url: '/albums',
-		// 		data: setup,
-		// 		dataType: 'json',
-		// 		success: function(data){
-		// 			// console.log(data)
-		// 			var label = `${region} ${data} albums to discover`
-		// 			$('.jqvmap-label').text(label)
 
-		// 		}
-		// 	});
-		// },
 	});
+	$('.song-info-wrapper').on('click','.like', function(e){
+		var album_info = JSON.parse(localStorage.getItem("album_info"))
+		$.ajax({
+			type: 'POST',
+			url: '/like',
+			data: album_info,
+			dataType: 'json',
+			success: function(data){
+				$('.likes').remove()
+				var likes = ejs.render('<p class="likes"><%= likes %></p>', {likes: data.likes})
+				$('.fa-heart').append(likes)
+				
+			}
+		});
+	})
 
 });
