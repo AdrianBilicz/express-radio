@@ -10,6 +10,8 @@ $( document ).ready(function() {
 	help = $('.help'),
 	flag = $('.flag'),
 	add = $('.add i')
+	login_btn = $('.login-btn')
+	register_btn = $('#create_account')
 
 	//
 	slider.val(setup.year)
@@ -49,6 +51,13 @@ $( document ).ready(function() {
 	//event handling for adding video
 	add.on('click', function(){
 		$('.post-song').toggleClass('hidden')
+	})
+	login_btn.on('click', function(){
+		$('.login-box').toggleClass('hidden')
+	})
+		register_btn.on('click', function(e){
+			// e.preventDefault()
+		$('.register-box').toggleClass('hidden')
 	})
 
 	//sending request the server for putting link to the database

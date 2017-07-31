@@ -445,7 +445,7 @@ box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 outline: none;
 }
-input[type="text"] {
+input[type="text"]#yotube-input {
   display: inline-block;
   margin: 0;
   width: 100px;
@@ -508,15 +508,18 @@ h2{
   text-align: center;
 }
 .login-btn{
-  display: inline-block;
+  display: block;
+  text-align: center;
   background-color: #feec39;
-  position: absolute;
-  top: 10%;
-  right: 26px;
   padding: 0 10px;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+.login_buttons_wrapper{
+  position: absolute;
+  top: 10%;
+  right: 26px;
 }
 .login-box{
   position: absolute;
@@ -544,7 +547,7 @@ h2{
 .login-box form.login .form-column input{
    font-family: 'Oswald', sans-serif; 
  }
- .login-box a{
+ .login_buttons_wrapper a{
    color: black;
  }
 input.login-submit{
@@ -563,25 +566,54 @@ input.login-submit{
   font-size: 20px;
   cursor: pointer;
 }
-.close{
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(50%,-50%);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 
+
+.register-box{
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(48,113,169);
+  border: solid #fff 4px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  width: 20%;
 }
-.close i{
-  font-size: 25px;
+.register-box form.register{
+
+  margin-bottom: 20px;
+}
+.register-box form.register .input-fields .form-column{
+  display: flex;
+  flex-direction: column;
+}
+.register-box form.register .input-fields{
+   flex-grow: 1;
+}
+.register-box form.register .form-column input{
+   font-family: 'Oswald', sans-serif; 
+ }
+ .register-box a{
+   color: black;
+ }
+input.register-submit{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(20%,20%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  outline: none;
+  background-color: #c21f25;
+  border: none;
+  font-family: 'Oswald', sans-serif; 
   color: #fff;
+  font-size: 20px;
+  cursor: pointer;
 }
+
 
 @keyframes spining{
   0%{transform: rotate(0deg)}

@@ -29,6 +29,17 @@ router.get('/radioo', function(req, res, next) {
 	res.render('index');
 });
 
+/* Login */
+router.post('/login', function(req, res, next) {
+
+	
+});
+/* Login */
+router.post('/register', function(req, res, next) {
+
+	
+});
+
 //route for requesting data from externall api
 router.post('/radioo', function(req, res, next) {
 	//api request options

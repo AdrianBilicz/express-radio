@@ -17,27 +17,51 @@
     <!-- PLANE -->
     <img src="/img/plane.png" class="plane" height="80px" alt="">
 
-    <!-- LOGIN -->
-    <div class="login-btn">Login</div>
+    <!-- LOGIN SECTION-->
+    <div class="login_buttons_wrapper">
+      <div class="login-btn">Login</div>
+      <a id="create_account" href="#">Don't have an account?</a>
+    </div>
+    
 
-    <div class="login-box">
-    <div class="close"><i class="fa fa-times" aria-hidden="true"></i></div>
-      <form class="login" action="">
+    <div class="login-box hidden">
+      <form class="login" action="/login" method="post">
         <div class="input-fields">
           <div class="form-column">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="email">
+            <input type="email" id="email" placeholder="email" required="true">
           </div>
           <div class="form-column">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="*****">
+            <input type="password" id="password" placeholder="*****" required="true">
           </div>
         </div>
         <input class="login-submit" type="submit" value="Send">
       </form>
-
-      <a href="#">Don't have an account?</a>
     </div>
+
+    <!-- REGISTER SECTRION -->
+    
+    <div class="register-box hidden">
+      <form class="register" action="/register" method="post">
+        <div class="input-fields">
+          <div class="form-column">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email" required="true">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="name" required="true">
+          </div>
+          <div class="form-column">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="*****" required="true">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="*****" required="true">
+          </div>
+        </div>
+        <input class="register-submit" type="submit" value="Send">
+      </form>
+    </div>
+
     <!-- SONG INFO -->
     <div class="song-info-wrapper"></div>
     <!-- TIMELINE -->
@@ -73,7 +97,7 @@
     </div>
     <div class="post-song hidden">
       <form action="/upload">
-        <input type="text">
+        <input id="youtube-input" type="text">
         <input class="youtube" type="submit" placeholder="Paste a youtube url...">
       </form>
     </div>
