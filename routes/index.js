@@ -128,10 +128,10 @@ router.post('/radioo', function(req, res, next) {
 	], function(err, album_info) {
 		if (err) return res.send({ error: err, msg: 'There was an error' })
 		
-		res.render('index', { album_info })
+		// res.render('index', { album_info })
 
 		// This works totalty fine but res.render('index', { album_info }) Doesn't do anything
-		// res.send(album_info)	
+		res.send(album_info)	
 		
 	})
 });
