@@ -29,16 +29,7 @@ router.get('/radioo', function(req, res, next) {
 	res.render('index');
 });
 
-/* Login */
-router.post('/login', function(req, res, next) {
 
-	
-});
-/* Login */
-router.post('/register', function(req, res, next) {
-
-	
-});
 
 //route for requesting data from externall api
 router.post('/radioo', function(req, res, next) {
@@ -148,7 +139,7 @@ router.post('/radioo', function(req, res, next) {
 	})
 });
 
-router.post('/like', function(req, res, next) {
+router.post('/like',ensureAuthenticated, function(req, res, next) {
 	var title = req.body.title
 	var is_video = JSON.parse(req.body.video_info.is_video)
 	
@@ -174,11 +165,17 @@ if(is_video){
   				return res.send({likes: 1})
   			}
   		});
-
-	}else{
-		console.log("you can't like the song")
 	}
-
 });
+
+
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		var info = 'you have to logged in to like the songs'
+		res.send({info: info})
+	}
+}
 
 module.exports = router;

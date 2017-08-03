@@ -52,16 +52,16 @@ $( document ).ready(function() {
 	add.on('click', function(){
 		$('.post-song').toggleClass('hidden')
 	})
-	login_btn.on('click', function(){
-		$('.login-box').toggleClass('hidden')
-	})
-		register_btn.on('click', function(e){
-			// e.preventDefault()
-		$('.register-box').toggleClass('hidden')
-	})
+	// login_btn.on('click', function(){
+	// 	$('.login-box').toggleClass('hidden')
+	// })
+	// 	register_btn.on('click', function(e){
+	// 		// e.preventDefault()
+	// 	$('.register-box').toggleClass('hidden')
+	// })
 
 	//sending request the server for putting link to the database
-	$('form').on('submit', function(e){
+	$('form#url').on('submit', function(e){
 		var youtube_link = $('input[type=text]').val()
 		db_query = {
 			youtube_link: youtube_link,
@@ -82,6 +82,19 @@ $( document ).ready(function() {
 			}
 		});
 	})
+	////Register
+
+	// $('.register').on('submit', function(e){
+
+	// 	// e.preventDefault()
+	// 	$.ajax({
+	// 		type: 'POST',
+	// 		url: '/users/register',
+	// 		success: function(data){
+	// 			console.log('cos')
+	// 		}
+	// 	});
+	// })
 
 	//load map and handle click event on region
 	jQuery('#vmap').vectorMap({
