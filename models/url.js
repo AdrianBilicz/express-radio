@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var urlSchema = new Schema({
 	title: String,
 	video_url: String,
-	likes: Number
+	likes: Array
 },{timestamps: true})
 
 var ModelClass = mongoose.model('url',urlSchema)

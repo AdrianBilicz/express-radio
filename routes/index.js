@@ -84,7 +84,7 @@ router.post('/radioo', function(req, res, next) {
 					if (result || random_album_data.videos) {
 						if(result){
 							var ytb_url = result.video_url ? result.video_url : random_album_data.videos[0].uri
-							var likes = result.likes ? result.likes : 0
+							var likes = result.likes ? result.likes.length : 0
 						}else{
 							var ytb_url = random_album_data.videos[0].uri
 							var likes = 0
@@ -145,24 +145,40 @@ router.post('/like',ensureAuthenticated, function(req, res, next) {
 	
 
 if(is_video){
+	var email = req.user.email
 		Url.findOne({ title: title }, function(err, result) {
 			if (result) {
-				var likes = ++result.likes
+				console.log(result.likes)
+				var index = result.likes.indexOf(email);
+				if(index !== -1){
+					result.likes.splice(index, 1)
+				}else{
+					result.likes.push(email)
+				}
+				result.likes
+				var likes = result.likes
 				Url.update({title: title},{"$set": {likes: likes}},function(err,res){
-					console.log(err)
-					console.log(res)
+
 				})
 
-					return	res.send({likes: likes})
+					return	res.send({likes: likes.length})
 
 			} else {
-				var new_record = new Url({ title, video_url: '', likes: 1 })
+				
+				var likes = [];
+				likes.push(email)
+				var new_record = new Url({ title, video_url: '', likes: likes })
   				//save database record
   				new_record.save(function(err) {
-  					if (err) return res.send({ success: false, msg: 'error writing to database' })
-  						console.log('ok')	
+  					if (err) {
+  						return res.send({ success: false, msg: 'error writing to database' })
+  				}else{
+  					console.log('ok')
+  					return res.send({likes: likes.length})
+  				}
+  						
   				})
-  				return res.send({likes: 1})
+  				
   			}
   		});
 	}
@@ -171,10 +187,10 @@ if(is_video){
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
+		
 		return next();
 	} else {
-		var info = 'you have to logged in to like the songs'
-		res.send({info: info})
+		res.send({info: true})
 	}
 }
 

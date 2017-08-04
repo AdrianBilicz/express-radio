@@ -10,8 +10,8 @@ $( document ).ready(function() {
 	help = $('.help'),
 	flag = $('.flag'),
 	add = $('.add i')
-	login_btn = $('.login-btn')
-	register_btn = $('#create_account')
+	close_btn = $('.close-btn')
+
 
 	//
 	slider.val(setup.year)
@@ -52,13 +52,10 @@ $( document ).ready(function() {
 	add.on('click', function(){
 		$('.post-song').toggleClass('hidden')
 	})
-	// login_btn.on('click', function(){
-	// 	$('.login-box').toggleClass('hidden')
-	// })
-	// 	register_btn.on('click', function(e){
-	// 		// e.preventDefault()
-	// 	$('.register-box').toggleClass('hidden')
-	// })
+	close_btn.on('click', function(){
+		$(this).parent().addClass('hidden')
+	})
+
 
 	//sending request the server for putting link to the database
 	$('form#url').on('submit', function(e){
@@ -82,19 +79,6 @@ $( document ).ready(function() {
 			}
 		});
 	})
-	////Register
-
-	// $('.register').on('submit', function(e){
-
-	// 	// e.preventDefault()
-	// 	$.ajax({
-	// 		type: 'POST',
-	// 		url: '/users/register',
-	// 		success: function(data){
-	// 			console.log('cos')
-	// 		}
-	// 	});
-	// })
 
 	//load map and handle click event on region
 	jQuery('#vmap').vectorMap({
@@ -160,10 +144,16 @@ $( document ).ready(function() {
 			data: album_info,
 			dataType: 'json',
 			success: function(data){
-				$('.likes').remove()
-				var likes = ejs.render('<p class="likes"><%= likes %></p>', {likes: data.likes})
-				$('.fa-heart').append(likes)
-				
+
+				if(!data.info){
+					$('.likes').remove()
+					var likes = ejs.render('<p class="likes"><%= likes %></p>', {likes: data.likes})
+					$('.fa-heart').append(likes)
+					console.log(data)
+				}else{
+					console.log(data)
+					$('.login-alert-info').removeClass('hidden')
+				}
 			}
 		});
 	})
