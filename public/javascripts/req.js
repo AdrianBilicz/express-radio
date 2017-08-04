@@ -55,6 +55,9 @@ $( document ).ready(function() {
 	close_btn.on('click', function(){
 		$(this).parent().addClass('hidden')
 	})
+	$('.fa-angle-down').on('click',function(){
+	$('.song-info').slideToggle()
+})
 
 
 	//sending request the server for putting link to the database

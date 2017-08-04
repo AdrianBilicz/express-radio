@@ -255,8 +255,8 @@ input[type=range]:focus::-ms-fill-upper {
   height: 50px;
   background-color: #c21f25;
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 2%;
+  right: 3px;
   border-radius: 50%;
 }
 .help:hover{
@@ -518,8 +518,8 @@ h2{
 }
 .login_buttons_wrapper{
   position: absolute;
-  top: 10%;
-  right: 26px;
+  top: 12%;
+  right: 2%;
 }
 .login-box{
   position: absolute;
@@ -658,7 +658,34 @@ input.register-submit{
   padding: 0 5px;
 
 }
+@media (max-width: 768px) {
 
+.timeline {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    width: 95%;
+    transform: translateX(-50%);
+}
+.timeline input.time {
+    width: 100%;
+}
+.plane{
+  display: none;
+}
+.fa-angle-down{
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 50px;
+}
+#vinyl{
+  display: none;
+}
+
+}
 
 @keyframes spining{
   0%{transform: rotate(0deg)}
