@@ -38,6 +38,7 @@ router.post('/radioo', function(req, res, next) {
 	var setup = req.body,
 	token = 'PrwFREBcgmJxCDHzelVWgSObSBOxvvgtGPXiBFeI',
 	api_search = 'https://api.discogs.com/database/search?'
+	setup.genre = setup.genre === 'Any' ? '' : setup.genre
 
 	async.waterfall([
 		function(callback) {

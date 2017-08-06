@@ -425,7 +425,7 @@ img#vinyl{
   border: solid #fff 2px;
   font-size: 1.4em;
 }
-input[type=submit].yotube
+input[type=submit].youtube
 {
 padding: 10px 15px 11px !important;
 font-size: 18px !important;
@@ -445,7 +445,7 @@ box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 outline: none;
 }
-input[type="text"]#yotube-input {
+input[type="text"]#youtube-input {
   display: inline-block;
   margin: 0;
   width: 100px;
