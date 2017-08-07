@@ -139,7 +139,7 @@ router.post('/radioo', function(req, res, next) {
 		
 	})
 });
-
+//like button
 router.post('/like',ensureAuthenticated, function(req, res, next) {
 	var title = req.body.title
 	var is_video = JSON.parse(req.body.video_info.is_video)
@@ -149,7 +149,6 @@ if(is_video){
 	var email = req.user.email
 		Url.findOne({ title: title }, function(err, result) {
 			if (result) {
-				console.log(result.likes)
 				var index = result.likes.indexOf(email);
 				if(index !== -1){
 					result.likes.splice(index, 1)
