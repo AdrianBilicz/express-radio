@@ -1,9 +1,9 @@
 {
   "name": "express-radio",
   "version": "0.0.0",
-  "main": "server.js",
+  "main": "./server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node ./server.js"
   },
   "dependencies": {
     "async": "^2.5.0",
