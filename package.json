@@ -1,7 +1,6 @@
 {
   "name": "express-radio",
   "version": "0.0.0",
-  "private": true,
   "main": "./bin/www.js",
   "scripts": {
     "start": "node ./bin/www.js"
