@@ -12,28 +12,34 @@
 </head>
 <body>
   <div class="wrapper">
-
+    <% if(success_msg){ %><%= success_msg %><% } %>
+    <% if(error_msg){ %><%= error_msg %><% } %>
+    <% if(error){ %><%= error %><% } %>
     <div id="vmap" style="width: 100%; height: 100%;"></div>
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
     <!-- PLANE -->
     <img src="/img/plane.png" class="plane" height="80px" alt="">
 
     <!-- LOGIN SECTION-->
     <div class="login_buttons_wrapper">
-      <% if(!user) { %>
-        <a href="/users/login" class="login-btn">Login</a>
-        <a id="create_account" href="/users/register">Don't have an account?</a>
-      <% } %>
-
-      <% if(user) { %>
-       <a href="/users/logout" class="logout">LogOut</a>
-      <% } %>
+      <a href="/users/login" class="login-btn">Login</a>
+      <a id="create_account" href="/users/register">Don't have an account?</a>
     </div>
-    <!-- LIKE INFO -->
+    
 
-    <div class="login-alert-info hidden">
-      <div class="register-access-info">Register access only</div>
-      <p>You have to be logged in to like a song</p>
+    <div class="login-box">
+      <form class="login" action="/users/login" method="post">
+        <div class="input-fields">
+          <div class="form-column">
+            <label for="username">Email</label>
+            <input type="text" id="username" placeholder="username" name="username">
+          </div>
+          <div class="form-column">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="*****" name="password">
+          </div>
+        </div>
+        <input class="login-submit" type="submit" value="Send">
+      </form>
       <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
 
@@ -71,7 +77,6 @@
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Pop</p></li>
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Reagge</p></li>
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Rock</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Any</p></li>
       </ul>
     </div>
 

@@ -14,27 +14,42 @@
   <div class="wrapper">
 
     <div id="vmap" style="width: 100%; height: 100%;"></div>
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
     <!-- PLANE -->
     <img src="/img/plane.png" class="plane" height="80px" alt="">
 
     <!-- LOGIN SECTION-->
     <div class="login_buttons_wrapper">
-      <% if(!user) { %>
-        <a href="/users/login" class="login-btn">Login</a>
-        <a id="create_account" href="/users/register">Don't have an account?</a>
-      <% } %>
-
-      <% if(user) { %>
-       <a href="/users/logout" class="logout">LogOut</a>
-      <% } %>
+      <a href="/users/login" class="login-btn">Login</a>
+      <a id="create_account" href="/users/register">Don't have an account?</a>
     </div>
-    <!-- LIKE INFO -->
+    
 
-    <div class="login-alert-info hidden">
-      <div class="register-access-info">Register access only</div>
-      <p>You have to be logged in to like a song</p>
-      <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+    <!-- REGISTER SECTRION -->
+    
+    <div class="register-box">
+      <form class="register" action="/users/register" method="post">
+        <div class="input-fields">
+          <div class="form-column">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email"  name="email">
+            <label for="usernname">UserName</label>
+            <input type="text" id="username" placeholder="username"  name="username">
+          </div>
+          <div class="form-column">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="*****"  name="password">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="*****"  name="password2">
+          </div>
+        </div>
+        <input class="register-submit" type="submit" value="Send">
+      </form>
+          <ul class="errors">
+          <% if(errors) for(var i = 0; i < errors.length; i++){ %>
+            <li class="error"> <%= errors[i].msg %></li>
+          <% } %>
+        </ul>
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
 
     <!-- SONG INFO -->
@@ -71,7 +86,6 @@
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Pop</p></li>
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Reagge</p></li>
         <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Rock</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Any</p></li>
       </ul>
     </div>
 
