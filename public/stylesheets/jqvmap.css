@@ -641,7 +641,8 @@ input.register-submit{
   border-radius: 10px;
   padding: 10px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  width: 23%;
+  min-width: 23%;
+  z-index: 1;
   color: #fff;
 }
 .register-access-info{
