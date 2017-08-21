@@ -13,9 +13,14 @@ router.get('/favicon.ico', function(req, res) {
 
 //Uploading youtube video to database
 router.post('/upload', function(req, res, next) {
-	const { album_info: { title }, youtube_link } = req.body
+	console.log(req.body)
+	var title = req.body.album_info.title
+	var year = req.body.setup.year
+	var genre = req.body.setup.genre
+	var youtube_link =req.body.youtube_link
+
   //create new database record
-  var new_record = new Url({ title, video_url: youtube_link })
+  var new_record = new Url({ title: title, video_url: youtube_link, year: year, genre: genre })
   //save database record
   new_record.save(function(err) {
   	if (err) return res.send({ success: false, msg: 'error writing to database' })
@@ -30,24 +35,47 @@ router.get('/radioo', function(req, res, next) {
 });
 
 
-
 //route for requesting data from externall api
 router.post('/radioo', function(req, res, next) {
-	//api request options
+
+
 	var options = { headers: { 'user-agent': 'node.js' } }
-	var setup = req.body,
-	token = 'PrwFREBcgmJxCDHzelVWgSObSBOxvvgtGPXiBFeI',
-	api_search = 'https://api.discogs.com/database/search?'
-	setup.genre = setup.genre === 'Any' ? '' : setup.genre
+	
+	var token = 'PrwFREBcgmJxCDHzelVWgSObSBOxvvgtGPXiBFeI'
+	var api_search = 'https://api.discogs.com/database/search?'
+	
+	if(req.body.soundtrack){
+		var query = `${api_search}style=soundtrack&token=${token}`
+	}else{
+		var setup = req.body
+		setup.genre = setup.genre === 'Any' ? '' : setup.genre
+		var query = `${api_search}genre=${setup.genre}&country=${setup.country}&year=${setup.year}&token=${token}`
+	}
+	
+	console.log()
 
 	async.waterfall([
 		function(callback) {
-			request(`${api_search}genre=${setup.genre}&country=${setup.country}&year=${setup.year}&token=${token}`, options, function(error, response, body) {
+			request(query, options, function(error, response, body) {
 				console.log(response.statusCode)
+				if (error || response.statusCode >= 400) return callback(error)
+				//grab collection from api
+			var albums_collection = JSON.parse(response.body)
+			var pagination = albums_collection.pagination
+			var pages = pagination.pages > 100 ? 100 : pagination.pages
+			var random_page = Math.ceil(Math.random() * pages);
+				callback(null,random_page)
+			})
+		},
+		function(random_page,callback) {
+			request(`${query}&page=${random_page}`, options, function(error, response, body) {
+				console.log(response.statusCode)
+				console.log(`${query}&page=${random_page}`)
 				if (error || response.statusCode >= 400) return callback(error)
 
 				//grab collection from api
 			var albums_collection = JSON.parse(response.body)
+
 				//assigning album data to variables
 				var item = Math.floor(Math.random() * albums_collection.results.length);
 				var thumb = albums_collection.results.length !== 0 ? albums_collection.results[item].thumb : '/img/nopreview.jpeg'
@@ -83,12 +111,15 @@ router.post('/radioo', function(req, res, next) {
 
 						//if there is no video in database assign discogs video
 					if (result || random_album_data.videos) {
+
 						if(result){
 							var ytb_url = result.video_url ? result.video_url : random_album_data.videos[0].uri
 							var likes = result.likes ? result.likes.length : 0
+							var comments = result.comments ? result.comments : null
 						}else{
 							var ytb_url = random_album_data.videos[0].uri
 							var likes = 0
+							var comments = null
 						}
 						var iframe_url = ytb_url.replace('watch?v=', 'embed/') + '?autoplay=1';
 						var fb_url = `https://www.facebook.com/sharer/sharer.php?u=${ytb_url}`;
@@ -97,7 +128,8 @@ router.post('/radioo', function(req, res, next) {
 							video_url: iframe_url,
 							fb_link: fb_url,
 							lowest_price: lowest_price,
-							likes: likes
+							likes: likes,
+							comments: comments
 						}
 
 						return callback(null, album_info)
@@ -108,7 +140,8 @@ router.post('/radioo', function(req, res, next) {
 								video_url: '#',
 								fb_link: '#',
 								lowest_price: lowest_price,
-								likes: 0
+								likes: 0,
+								comments: null
 							}
 
 							return callback(null, album_info)
@@ -182,6 +215,49 @@ if(is_video){
   			}
   		});
 	}
+});
+
+//like button
+router.post('/comment',ensureAuthenticated, function(req, res, next) {
+	var user_comment = req.body.comment
+	var username = req.user.username
+	var title = req.body.album_info.title
+	console.log(username, user_comment,title)
+
+
+if(true){
+
+		Url.findOne({ title: title }, function(err, result) {
+			if (result) {
+				var comments = result.comments;
+
+					comments.push({user_comment: user_comment, username: username})
+		
+				Url.update({title: title},{"$set": {comments: comments}},function(err,res){
+
+				})
+
+					return	res.send({comments: comments})
+
+			} else {
+				
+				var comments = [];
+				comments.push({user_comment: user_comment, username: username})
+				var new_record = new Url({ title, video_url: '', comments: comments })
+  				//save database record
+  				new_record.save(function(err) {
+  					if (err) {
+  						return res.send({ success: false, msg: 'error writing to database' })
+  				}else{
+  					console.log('ok')
+  					return res.send({comments: comments})
+  				}
+  						
+  				})
+  				
+  			}
+  		});
+ 	}
 });
 
 
