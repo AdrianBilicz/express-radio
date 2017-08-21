@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="/css/jqvmap.css" media="screen" rel="stylesheet" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="/js/jquery.vmap.js"></script>
   <script type="text/javascript" src="/js/maps/jquery.vmap.world.js" charset="utf-8"></script>
   <script type="text/javascript" src="/js/ejs.min.js" charset="utf-8"></script>
@@ -21,6 +21,13 @@
     <div class="login_buttons_wrapper">
       <a href="/users/login" class="login-btn">Login</a>
       <a id="create_account" href="/users/register">Don't have an account?</a>
+    </div>
+        <!-- LIKE INFO -->
+
+    <div class="login-alert-info hidden">
+      <div class="register-access-info">Register access only</div>
+      <p>You have to be logged in to like a song</p>
+      <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
     
 
@@ -73,20 +80,23 @@
     </div>
 
     <!-- MOOD -->
-    <div class="mood">
+    <div class="mood hide">
       <span class="flag">mood</span>
-      <ul>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Blues</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Classical</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Electronic</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Soul</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Hip-Hop</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Jazz</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Latin</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Pop</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Reagge</p></li>
-        <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Rock</p></li>
-      </ul>
+      <div class="inner">
+        <ul>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Blues</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Classical</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Electronic</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Soul</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Hip-Hop</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Jazz</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Funk</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Pop</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Reagge</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Rock</p></li>
+          <li><i class="fa fa-circle-o" aria-hidden="true"></i><p>Any</p></li>
+        </ul>
+      </div>
     </div>
 
     <div class="post-song hidden">

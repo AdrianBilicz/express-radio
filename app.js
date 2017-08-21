@@ -25,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 // Express Validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
